@@ -7,9 +7,11 @@ window.geometry("300x350")
 
 current_player = "X"
 buttons = []
+move_count = 0
 
 def reset_game():
-    global current_player
+    global current_player, move_count
+    move_count = 0
     current_player = "X"
     for row in buttons:
         for btn in row:
@@ -30,15 +32,21 @@ def check_winner():
     return False
 
 def on_click(row, col):
-    global current_player
+    global current_player, move_count
 
     if buttons[row] [col] ['text'] != '':
         return
 
     buttons[row] [col] ['text'] = current_player
+    move_count += 1
 
     if check_winner():
         messagebox.showinfo("Игра завершена", f"Игрок {current_player} победил!")
+        return
+
+    if move_count == 9:
+        messagebox.showinfo("Игра завершена", "Ничья!")
+        return
 
     current_player = "O" if current_player == "X" else "X"
 
