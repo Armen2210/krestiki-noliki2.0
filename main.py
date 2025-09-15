@@ -8,6 +8,14 @@ window.geometry("300x350")
 current_player = "X"
 buttons = []
 
+def reset_game():
+    global current_player
+    current_player = "X"
+    for row in buttons:
+        for btn in row:
+            btn['text'] = ''
+
+
 def check_winner():
     for i in range(3):
         if buttons[i][0]['text'] == buttons[i][1]['text'] == buttons[i][2]['text'] != '':
@@ -35,6 +43,8 @@ def on_click(row, col):
     current_player = "O" if current_player == "X" else "X"
 
 
+
+
 for i in range(3):
     row = []
     for j in range(3):
@@ -42,5 +52,8 @@ for i in range(3):
         btn.grid(row=i, column=j)
         row.append(btn)
     buttons.append(row)
+
+    reset_button = tk.Button(window, text="Сброс", font=('Arial', 12), command=reset_game)
+    reset_button.grid(row=3, column=0, columnspan=3, pady=10)
 
 window.mainloop()
